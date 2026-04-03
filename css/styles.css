@@ -49,7 +49,7 @@ html { scroll-behavior: smooth; }
 body {
   background: linear-gradient(170deg, #090302 0%, #110604 40%, #0E0503 100%);
   color: var(--text-1);
-  font-family: 'Aref Ruqaa', 'Amiri', serif;
+  font-family: 'Cairo', 'Amiri', serif;
   font-weight: 400;
   font-size: 17px;
   line-height: 1.85;
@@ -58,13 +58,18 @@ body {
 }
 
 /* Decorative Arabic calligraphy for headings & display text */
-.hero-names,
 .section-title,
 .curtain-names,
 .modal-title,
-.rsvp-done h3,
-.footer-names {
-  font-family: 'Aref Ruqaa', 'Amiri', serif !important;
+.rsvp-done h3 {
+  font-family: 'Scheherazade New', 'Amiri', serif !important;
+}
+
+/* English decorative names & dates */
+.hero-names,
+.footer-names,
+.hero-date {
+  font-family: 'Great Vibes', cursive !important;
 }
 
 /* Arabic body copy uses Amiri */
@@ -79,7 +84,7 @@ body {
 .hero-date,
 .hero-venue,
 .hero-tag {
-  font-family: 'Aref Ruqaa', 'Amiri', serif;
+  font-family: 'Cairo', 'Amiri', serif;
 }
 a { color: inherit; text-decoration: none; }
 button { font-family: inherit; }
@@ -460,7 +465,7 @@ section { padding: 104px 24px; overflow: hidden; }
 }
 .countdown-row { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
 .cd-block { text-align: center; min-width: 90px; }
-.cd-num { display: block; font-family: 'Cormorant Garamond', serif; font-size: clamp(3.2rem, 9vw, 5.5rem); font-weight: 300; color: var(--gold); line-height: 1; }
+.cd-num { display: block; font-family: 'Bodoni Moda', serif; font-size: clamp(3.2rem, 9vw, 5.5rem); font-weight: 400; color: var(--gold); line-height: 1; }
 .cd-lbl { display: block; font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--text-3); margin-top: 10px; font-family: 'Amiri', serif; }
 .cd-sep { font-family: 'Cormorant Garamond', serif; font-size: 2.6rem; color: var(--olive-light); line-height: 1; margin-bottom: 22px; }
 

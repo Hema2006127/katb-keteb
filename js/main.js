@@ -230,7 +230,8 @@ function confirmName() {
   setTimeout(() => toast.classList.remove('show'), 4000);
 }
 
-document.getElementById('guest-input').addEventListener('keydown', e => {
+const _guestInput = document.getElementById('guest-input');
+if (_guestInput) _guestInput.addEventListener('keydown', e => {
   if (e.key === 'Enter') confirmName();
 });
 
@@ -240,7 +241,7 @@ document.getElementById('guest-input').addEventListener('keydown', e => {
   if (saved) {
     setVal('rsvp-name', saved);
     setVal('gb-name',   saved);
-    document.getElementById('toast-name').textContent = saved;
+    const tn = document.getElementById('toast-name'); if (tn) tn.textContent = saved;
   }
 })();
 
@@ -496,7 +497,7 @@ renderMessages();
 function addToCalendar() {
   const params = new URLSearchParams({
     action:  'TEMPLATE',
-    text:    'فرح يوسف ومريم — Yousef & Mariem',
+    text:    '  Yousef & Mariem',
     dates:   '20260417T200000/20260418T000000',
     location:'القاعة الكبرى، فندق روز جاردن، القاهرة',
     details: 'يشرفنا حضوركم في فرح يوسف ومريم — 17 April 2026'
@@ -533,7 +534,8 @@ function closeMobileNav() {
   document.body.style.overflow = '';
 }
 
-document.getElementById('mobile-nav').addEventListener('keydown', e => {
+const _mobileNav = document.getElementById('mobile-nav');
+if (_mobileNav) _mobileNav.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeMobileNav();
 });
 
