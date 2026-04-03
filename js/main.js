@@ -113,6 +113,9 @@ function sendEmail(subject, bodyLines) {
    CURTAIN
 ========================================================================== */
 function openCurtain() {
+  // لو مفيش اسم محفوظ، سجّل الاسم الافتراضي وأغلق المودال
+  if (!localStorage.getItem('weddingGuestName')) confirmName();
+
   const btn     = document.getElementById('open-btn');
   const overlay = document.getElementById('curtain-overlay');
   const left    = document.getElementById('curtainLeft');
@@ -194,17 +197,14 @@ function openCurtain() {
    NAME MODAL — يظهر أول شيء عند فتح الرابط
 ========================================================================== */
 
-// أظهر المودال فوراً عند تحميل الصفحة، وعطّل زرار الستارة لحين إدخال الاسم
+// أظهر المودال عند تحميل الصفحة (الزرار يشتغل دايماً)
 document.addEventListener('DOMContentLoaded', () => {
   const saved = localStorage.getItem('weddingGuestName');
   if (!saved) {
-    // زيارة أولى — اطلب الاسم
     const modal = document.getElementById('name-modal');
     const input = document.getElementById('guest-input');
-    const openBtn = document.getElementById('open-btn');
     if (modal) modal.classList.add('active');
     if (input) setTimeout(() => input.focus(), 300);
-    if (openBtn) openBtn.disabled = true; // لا يفتح الستارة قبل إدخال الاسم
   }
 });
 
