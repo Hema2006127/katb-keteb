@@ -120,6 +120,7 @@ function openCurtain() {
   const overlay = document.getElementById('curtain-overlay');
   const left    = document.getElementById('curtainLeft');
   const right   = document.getElementById('curtainRight');
+  const pelmet  = document.getElementById('curtainPelmet');
   const stage   = document.querySelector('.curtain-stage');
 
   if (!overlay || !left || !right) return;
@@ -146,8 +147,9 @@ function openCurtain() {
     progress = Math.min(elapsed / duration, 1);
     const ease = easeInOutCubic(progress);
 
-    left.style.transform  = `translateX(${-maxX * ease}px) translateY(${-maxY * ease}px)`;
-    right.style.transform = `translateX(${maxX * ease}px) translateY(${-maxY * ease}px)`;
+    left.style.transform   = `translateX(${-maxX * ease}px) translateY(${-maxY * ease}px)`;
+    right.style.transform  = `translateX(${maxX * ease}px) translateY(${-maxY * ease}px)`;
+    if (pelmet) pelmet.style.transform = `translateY(${-maxY * 2 * ease}px)`;
 
     if (progress < 1) {
       requestAnimationFrame(animate);

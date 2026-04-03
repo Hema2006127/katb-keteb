@@ -260,7 +260,7 @@ img { display: block; max-width: 100%; }
    NAVIGATION
 ========================================================================== */
 #nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 3500;
   padding: 22px 48px;
   display: flex; align-items: center; justify-content: space-between;
   transition: padding .3s, background .3s;
