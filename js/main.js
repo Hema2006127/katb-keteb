@@ -501,7 +501,7 @@ function addToCalendar() {
     action:  'TEMPLATE',
     text:    '  Yousef & Mariem',
     dates:   '20260417T200000/20260418T000000',
-    location:'القاعة الكبرى، فندق روز جاردن، القاهرة',
+    location:'شبر ا الخيمه - كشري الزعيم الشارع الجديد',
     details: 'يشرفنا حضوركم في فرح يوسف ومريم — 17 April 2026'
   });
   window.open(
