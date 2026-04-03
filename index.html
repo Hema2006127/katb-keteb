@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>يوسف و مريم — دعوة فرح</title>
+  <meta name="description" content="ندعوك لحضور فرح يوسف ومريم في 17 April 2026." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@200;300;400;500;600&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Scheherazade+New:wght@400;700&family=Aref+Ruqaa:wght@400;700&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+
+  <!-- ══════════════════════════════════════
+       PARTICLE CANVAS (sparkles + dust)
+  ═══════════════════════════════════════ -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- ══════════════════════════════════════
+       BACKGROUND AUDIO
+       ← استبدل الـ src بملف الموسيقى الخاص بك
+  ═══════════════════════════════════════ -->
+  <audio id="bg-music" loop preload="none">
+    <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- ══════════════════════════════════════
+       MUSIC PLAYER (fixed bottom-right)
+  ═══════════════════════════════════════ -->
+  <div id="music-player" onclick="toggleMusic()" title="تشغيل/إيقاف الموسيقى" aria-label="تشغيل أو إيقاف الموسيقى الخلفية">
+    <div class="mp-disc"><span>♪</span></div>
+    <div class="mp-bars">
+      <div class="mp-bar"></div>
+      <div class="mp-bar"></div>
+      <div class="mp-bar"></div>
+      <div class="mp-bar"></div>
+    </div>
+    <span class="mp-label" id="mp-label">موسيقى</span>
+  </div>
+
+  <div id="curtain-overlay">
+
+ 
+
+    <!-- SVG Curtains -->
+    <svg class="curtains-svg" id="curtainSvg" viewBox="0 0 700 500" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="fabricL" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%"   stop-color="#180A06"/>
+          <stop offset="15%"  stop-color="#2C1208"/>
+          <stop offset="30%"  stop-color="#3E1A0C"/>
+          <stop offset="50%"  stop-color="#2C100A"/>
+          <stop offset="70%"  stop-color="#220E08"/>
+          <stop offset="85%"  stop-color="#2C1208"/>
+          <stop offset="100%" stop-color="#281008"/>
+        </linearGradient>
+        <linearGradient id="fabricR" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%"   stop-color="#281008"/>
+          <stop offset="15%"  stop-color="#2C1208"/>
+          <stop offset="30%"  stop-color="#220E08"/>
+          <stop offset="50%"  stop-color="#2C100A"/>
+          <stop offset="70%"  stop-color="#3E1A0C"/>
+          <stop offset="85%"  stop-color="#2C1208"/>
+          <stop offset="100%" stop-color="#180A06"/>
+        </linearGradient>
+        <linearGradient id="foldL1" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%"   stop-color="rgba(0,0,0,0.6)"/>
+          <stop offset="20%"  stop-color="rgba(0,0,0,0)"/>
+          <stop offset="40%"  stop-color="rgba(0,0,0,0.35)"/>
+          <stop offset="60%"  stop-color="rgba(0,0,0,0)"/>
+          <stop offset="80%"  stop-color="rgba(0,0,0,0.45)"/>
+          <stop offset="100%" stop-color="rgba(158,74,57,0.20)"/>
+        </linearGradient>
+        <linearGradient id="foldR1" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%"   stop-color="rgba(158,74,57,0.20)"/>
+          <stop offset="20%"  stop-color="rgba(0,0,0,0.45)"/>
+          <stop offset="40%"  stop-color="rgba(0,0,0,0)"/>
+          <stop offset="60%"  stop-color="rgba(0,0,0,0.35)"/>
+          <stop offset="80%"  stop-color="rgba(0,0,0,0)"/>
+          <stop offset="100%" stop-color="rgba(0,0,0,0.6)"/>
+        </linearGradient>
+        <linearGradient id="goldTrim" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%"   stop-color="#8A7030"/>
+          <stop offset="20%"  stop-color="#C2A848"/>
+          <stop offset="40%"  stop-color="#DCA888"/>
+          <stop offset="55%"  stop-color="#C2A848"/>
+          <stop offset="70%"  stop-color="#8A7030"/>
+          <stop offset="85%"  stop-color="#C2A848"/>
+          <stop offset="100%" stop-color="#8A7030"/>
+        </linearGradient>
+        <linearGradient id="tasselGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%"   stop-color="#C2A848"/>
+          <stop offset="50%"  stop-color="#8A7030"/>
+          <stop offset="100%" stop-color="#C2A848"/>
+        </linearGradient>
+      </defs>
+
+      <!-- LEFT CURTAIN -->
+      <g id="curtainLeft" style="transform-origin:350px 250px; transform:translateX(0px) translateY(0px);">
+        <path d="M 0,60 Q 50,65 100,62 Q 150,59 200,63 Q 250,67 300,65 Q 330,64 350,63 L 350,500 Q 280,498 220,497 Q 150,496 80,498 Q 40,499 0,500 Z" fill="url(#fabricL)"/>
+        <path d="M 0,60 Q 50,65 100,62 Q 150,59 200,63 Q 250,67 300,65 Q 330,64 350,63 L 350,500 Q 280,498 220,497 Q 150,496 80,498 Q 40,499 0,500 Z" fill="url(#foldL1)" opacity="0.9"/>
+        <line x1="55"  y1="62" x2="48"  y2="500" stroke="rgba(0,0,0,0.4)"         stroke-width="1"   opacity="0.7"/>
+        <line x1="110" y1="61" x2="108" y2="500" stroke="rgba(255,255,255,0.03)"   stroke-width="3"   opacity="1"/>
+        <line x1="165" y1="63" x2="162" y2="500" stroke="rgba(0,0,0,0.35)"         stroke-width="1.5" opacity="0.8"/>
+        <line x1="215" y1="62" x2="218" y2="500" stroke="rgba(255,255,255,0.04)"   stroke-width="2.5" opacity="1"/>
+        <line x1="265" y1="64" x2="260" y2="500" stroke="rgba(0,0,0,0.3)"          stroke-width="1"   opacity="0.9"/>
+        <line x1="310" y1="63" x2="312" y2="500" stroke="rgba(0,0,0,0.25)"         stroke-width="1"   opacity="0.8"/>
+        <path d="M 0,490 Q 45,500 90,494 Q 135,488 180,496 Q 225,504 270,492 Q 310,483 350,495 L 350,500 L 0,500 Z" fill="rgba(0,0,0,0.3)"/>
+        <rect x="344" y="60" width="6"  height="440" fill="url(#goldTrim)"/>
+        <rect x="345" y="60" width="2"  height="440" fill="rgba(255,255,255,0.12)"/>
+        <ellipse cx="45"  cy="67" rx="22" ry="6" fill="rgba(0,0,0,0.5)"  opacity="0.7"/>
+        <ellipse cx="115" cy="65" rx="20" ry="5" fill="rgba(0,0,0,0.45)" opacity="0.6"/>
+        <ellipse cx="185" cy="67" rx="22" ry="6" fill="rgba(0,0,0,0.5)"  opacity="0.7"/>
+        <ellipse cx="255" cy="66" rx="20" ry="5" fill="rgba(0,0,0,0.45)" opacity="0.6"/>
+        <ellipse cx="320" cy="66" rx="18" ry="5" fill="rgba(0,0,0,0.4)"  opacity="0.6"/>
+        <path d="M 350,280 Q 310,295 290,320 Q 275,340 285,360" stroke="#C2A848" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.8"/>
+        <circle cx="285" cy="360" r="6" fill="#C2A848" opacity="0.9"/>
+        <circle cx="285" cy="360" r="3" fill="#DCA888"/>
+        <line x1="285" y1="366" x2="282" y2="395" stroke="#C2A848" stroke-width="1.5"/>
+        <line x1="285" y1="366" x2="285" y2="398" stroke="#8A7030" stroke-width="1.5"/>
+        <line x1="285" y1="366" x2="288" y2="392" stroke="#C2A848" stroke-width="1.5"/>
+        <ellipse cx="284" cy="400" rx="3" ry="5" fill="url(#tasselGrad)"/>
+        <ellipse cx="285" cy="403" rx="3" ry="5" fill="url(#tasselGrad)"/>
+        <ellipse cx="288" cy="397" rx="3" ry="5" fill="url(#tasselGrad)"/>
+      </g>
+
+      <!-- RIGHT CURTAIN -->
+      <g id="curtainRight" style="transform-origin:350px 250px; transform:translateX(0px) translateY(0px);">
+        <path d="M 350,63 Q 370,64 400,65 Q 450,67 500,63 Q 550,59 600,62 Q 650,65 700,60 L 700,500 Q 660,499 620,498 Q 550,496 480,497 Q 420,498 350,500 Z" fill="url(#fabricR)"/>
+        <path d="M 350,63 Q 370,64 400,65 Q 450,67 500,63 Q 550,59 600,62 Q 650,65 700,60 L 700,500 Q 660,499 620,498 Q 550,496 480,497 Q 420,498 350,500 Z" fill="url(#foldR1)" opacity="0.9"/>
+        <line x1="390" y1="63" x2="388" y2="500" stroke="rgba(0,0,0,0.25)"       stroke-width="1"   opacity="0.8"/>
+        <line x1="435" y1="66" x2="432" y2="500" stroke="rgba(255,255,255,0.04)" stroke-width="2.5" opacity="1"/>
+        <line x1="485" y1="63" x2="490" y2="500" stroke="rgba(0,0,0,0.35)"       stroke-width="1.5" opacity="0.8"/>
+        <line x1="535" y1="61" x2="542" y2="500" stroke="rgba(255,255,255,0.03)" stroke-width="3"   opacity="1"/>
+        <line x1="590" y1="63" x2="595" y2="500" stroke="rgba(0,0,0,0.4)"        stroke-width="1"   opacity="0.7"/>
+        <line x1="645" y1="64" x2="650" y2="500" stroke="rgba(0,0,0,0.3)"        stroke-width="1"   opacity="0.8"/>
+        <path d="M 350,495 Q 390,483 430,492 Q 475,504 520,496 Q 565,488 610,494 Q 655,500 700,490 L 700,500 L 350,500 Z" fill="rgba(0,0,0,0.3)"/>
+        <rect x="350" y="60" width="6"  height="440" fill="url(#goldTrim)"/>
+        <rect x="353" y="60" width="2"  height="440" fill="rgba(255,255,255,0.12)"/>
+        <ellipse cx="380" cy="66" rx="18" ry="5" fill="rgba(0,0,0,0.4)"  opacity="0.6"/>
+        <ellipse cx="445" cy="66" rx="20" ry="5" fill="rgba(0,0,0,0.45)" opacity="0.6"/>
+        <ellipse cx="515" cy="67" rx="22" ry="6" fill="rgba(0,0,0,0.5)"  opacity="0.7"/>
+        <ellipse cx="585" cy="65" rx="20" ry="5" fill="rgba(0,0,0,0.45)" opacity="0.6"/>
+        <ellipse cx="655" cy="67" rx="22" ry="6" fill="rgba(0,0,0,0.5)"  opacity="0.7"/>
+        <path d="M 350,280 Q 390,295 410,320 Q 425,340 415,360" stroke="#C2A848" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.8"/>
+        <circle cx="415" cy="360" r="6" fill="#C2A848" opacity="0.9"/>
+        <circle cx="415" cy="360" r="3" fill="#DCA888"/>
+        <line x1="415" y1="366" x2="412" y2="395" stroke="#C2A848" stroke-width="1.5"/>
+        <line x1="415" y1="366" x2="415" y2="398" stroke="#8A7030" stroke-width="1.5"/>
+        <line x1="415" y1="366" x2="418" y2="392" stroke="#C2A848" stroke-width="1.5"/>
+        <ellipse cx="412" cy="400" rx="3" ry="5" fill="url(#tasselGrad)"/>
+        <ellipse cx="415" cy="403" rx="3" ry="5" fill="url(#tasselGrad)"/>
+        <ellipse cx="418" cy="397" rx="3" ry="5" fill="url(#tasselGrad)"/>
+      </g>
+
+      <!-- PELMET -->
+      <rect x="0" y="0" width="700" height="62" fill="url(#fabricL)"/>
+      <rect x="0" y="57" width="700" height="5"   fill="#C2A848"/>
+      <rect x="0" y="58" width="700" height="1.5" fill="#DCA888" opacity="0.6"/>
+      <g>
+        <line x1="35"  y1="62" x2="35"  y2="82" stroke="#C2A848" stroke-width="1.5"/><ellipse cx="35"  cy="88" rx="4" ry="7" fill="url(#tasselGrad)"/>
+        <line x1="80"  y1="62" x2="80"  y2="78" stroke="#C2A848" stroke-width="1.5"/><ellipse cx="80"  cy="84" rx="4" ry="7" fill="url(#tasselGrad)"/>
+        <line x1="125" y1="62" x2="125" y2="82" stroke="#C2A848" stroke-width="1.5"/><ellipse cx="125" cy="88" rx="4" ry="7" fill="url(#tasselGrad)"/>
+        <line x1="170" y1="62" x2="170" y2="78" stroke="#C2A848" stroke-width="1.5"/><ellipse cx="170" cy="84" rx="4" ry="7" fill="url(#tasselGrad)"/>
+        <line x1="215" y1="62" x2="215" y2="82" stroke="#C2A848" stroke-width="1.5"/><ellipse cx="215" cy="88" rx="4" ry="7" fill="url(#tasselGrad)"/>
+        <line x1="260" y1="62" x2="260" y2="78" stroke="#C2A848" stroke-width="1.5"/><ellipse cx="260" cy="84" rx="4" ry="7" fill="url(#tasselGrad)"/>
+        <line x1="305" y1="62" x2="305" y2="82" stroke="#C2A848" stroke-width="1.5"/><ellipse cx="305" cy="88" rx="4" ry="7" fill="url(#tasselGrad)"/>
+        <line x1="350" y1="62" x2="350" y2="78" stroke="#DCA888" stroke-width="2"/><ellipse cx="350" cy="84" rx="5" ry="8" fill="url(#tasselGrad)"/>
+        <line x1="395" y1="62" x2="395" y2="82" stroke="#C2A848" stroke-width="1.5"/><ellipse cx="395" cy="88" rx="4" ry="7" fill="url(#tasselGrad)"/>
+        <line x1="440" y1="62" x2="440" y2="78" stroke="#C2A848" stroke-width="1.5"/><ellipse cx="440" cy="84" rx="4" ry="7" fill="url(#tasselGrad)"/>
+        <line x1="485" y1="62" x2="485" y2="82" stroke="#C2A848" stroke-width="1.5"/><ellipse cx="485" cy="88" rx="4" ry="7" fill="url(#tasselGrad)"/>
+        <line x1="530" y1="62" x2="530" y2="78" stroke="#C2A848" stroke-width="1.5"/><ellipse cx="530" cy="84" rx="4" ry="7" fill="url(#tasselGrad)"/>
+        <line x1="575" y1="62" x2="575" y2="82" stroke="#C2A848" stroke-width="1.5"/><ellipse cx="575" cy="88" rx="4" ry="7" fill="url(#tasselGrad)"/>
+        <line x1="620" y1="62" x2="620" y2="78" stroke="#C2A848" stroke-width="1.5"/><ellipse cx="620" cy="84" rx="4" ry="7" fill="url(#tasselGrad)"/>
+        <line x1="665" y1="62" x2="665" y2="82" stroke="#C2A848" stroke-width="1.5"/><ellipse cx="665" cy="88" rx="4" ry="7" fill="url(#tasselGrad)"/>
+      </g>
+      <text x="350" y="38" text-anchor="middle" font-size="12" letter-spacing="8" fill="#C47890" font-family="sans-serif">✦ · ✦ · ✦ · ✦</text>
+      <rect x="0" y="480" width="700" height="20" fill="rgba(0,0,0,0.5)"/>
+    </svg>
+
+    <!-- Open button (above SVG curtains) -->
+    <button class="curtain-btn" id="open-btn" onclick="openCurtain()">
+      <span>✦</span> افتح الدعوة <span>✦</span>
+    </button>
+
+  </div>
+
+  <!-- ══════════════════════════════════════
+       NAME MODAL
+  ═══════════════════════════════════════ -->
+  <div id="name-modal" role="dialog" aria-modal="true" aria-label="أدخل اسمك">
+    <div class="modal-box">
+      <div class="modal-icon">💌</div>
+      <h2 class="modal-title">مرحباً بك</h2>
+      <p class="modal-sub">من فضلك ادخل اسمك</p>
+      <input
+        type="text" id="guest-input" class="modal-input"
+        placeholder="اسمك" maxlength="50"
+        autocomplete="off" spellcheck="false"
+      />
+      <br />
+      <button class="modal-btn" onclick="confirmName()">دخول &nbsp;✦</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       WELCOME TOAST
+  ═══════════════════════════════════════ -->
+  <div id="welcome-toast" aria-live="polite">
+    أهلاً بك، <span class="guest-name" id="toast-name">ضيف</span> &nbsp;❤️
+  </div>
+
+  <!-- ══════════════════════════════════════
+       MOBILE NAV DRAWER
+  ═══════════════════════════════════════ -->
+  <div id="mobile-nav" role="navigation" aria-label="Mobile navigation">
+    <button class="mobile-nav-close" onclick="closeMobileNav()" aria-label="Close menu">✕</button>
+    <a href="#hero"         onclick="closeMobileNav()">الرئيسية</a>
+    <a href="#location"     onclick="closeMobileNav()">المكان</a>
+    <a href="#rsvp"         onclick="closeMobileNav()">تأكيد الحضور</a>
+    <a href="#guestbook"    onclick="closeMobileNav()">تسجيل الضيوف</a>
+    <a href="#calendar-cta" onclick="closeMobileNav()">التقويم</a>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════ -->
+  <nav id="nav" role="navigation" aria-label="Main navigation">
+    <a class="nav-brand" href="#hero">Y &amp; L</a>
+    <ul class="nav-links">
+      <li><a href="#location">المكان</a></li>
+      <li><a href="#rsvp">تأكيد الحضور</a></li>
+      <li class="nav-sep">✦</li>
+      <li><a href="#guestbook">سجل الضيوف</a></li>
+      <li><a href="#calendar-cta">التقويم</a></li>
+    </ul>
+    <div class="nav-burger" onclick="openMobileNav()" aria-label="Open menu" role="button" tabindex="0">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════
+       MAIN CONTENT
+  ═══════════════════════════════════════ -->
+  <main>
+
+    <!-- ── HERO ── -->
+    <section id="hero">
+      <div class="hero-radial"></div>
+      <div class="hero-inner">
+        <p class="hero-tag">معاً للأبد</p>
+
+        <!-- ← غيّر الأسماء هنا -->
+        <h1 class="hero-names">
+          Yousef
+          <span class="hero-amp">&amp;</span>
+        mariem
+        </h1>
+
+        <p class="quran-verse" style="margin:12px 0 8px; font-size:1.05rem; line-height:1.4; color:#f2e7c6;">
+         ﴾ وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُمْ مِنْ أَنْفُسِكُمْ أَزْوَاجًا لِتَسْكُنُوا إِلَيْهَا
+          وَجَعَلَ بَيْنَكُمْ مَوَدَّةً وَرَحْمَةً ﴿
+        </p>
+
+        <div class="hero-rule"></div>
+
+        <!-- ← غيّر التاريخ والمكان هنا -->
+        <p class="hero-date">17 April · 2026</p>
+        <p class="hero-venue">6:00 مساءً &nbsp;·&nbsp; &nbsp;·&nbsp; القاهرة</p>
+
+        <div class="hero-actions">
+          <a href="#rsvp"     class="btn-gold">✦&nbsp; التأكيد الآن</a>
+          <a href="#location" class="btn-outline">📍&nbsp; المكان</a>
+        </div>
+      </div>
+      <div class="hero-scroll">
+        <span>مرّر</span>
+        <div class="scroll-bar"></div>
+      </div>
+    </section>
+
+    <!-- ── COUNTDOWN ── -->
+    <section id="countdown">
+      <div class="section-head reveal">
+        <span class="section-tag">العد التنازلي حتى</span>
+        <h2 class="section-title">coming day</h  2>
+        <div class="section-rule"></div>
+      </div>
+      <div class="countdown-row stagger">
+        <div class="cd-block">
+          <span class="cd-num" id="cd-days">000</span>
+          <span class="cd-lbl">أيام</span>
+        </div>
+        <span class="cd-sep">·</span>
+        <div class="cd-block">
+          <span class="cd-num" id="cd-hours">00</span>
+          <span class="cd-lbl">ساعات</span>
+        </div>
+        <span class="cd-sep">·</span>
+        <div class="cd-block">
+          <span class="cd-num" id="cd-mins">00</span>
+          <span class="cd-lbl">دقائق</span>
+        </div>
+        <span class="cd-sep">·</span>
+        <div class="cd-block">
+          <span class="cd-num" id="cd-secs">00</span>
+          <span class="cd-lbl">ثوانٍ</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── LOCATION ── -->
+    <section id="location">
+      <div class="section-head reveal">
+        <span class="section-tag">موعدنا بإذن الله</span>
+        <h2 class="section-title">مكان الفرح</h2>
+        <div class="section-rule"></div>
+        <p class="section-desc">يسعدنا استقبالكم في هذا اليوم المميز</p>
+      </div>
+
+      <div class="loc-card reveal">
+        <div class="loc-info">
+          <div class="loc-row">
+        
+            <div class="loc-text">
+            
+            
+            </div>
+          </div>
+          <div class="loc-row">
+            
+            <div class="loc-text">
+              <h1>العنوان</h1>
+              <br>  شبرا الخيمه </p><br>كشري الزعيم الشارع الجديد بجوار بنك مصر<br />
+            </div>
+          </div>
+          <div class="loc-row">
+           
+            <div class="loc-text">
+              <h4></h4>
+
+            </div>
+          </div>
+          <div class="loc-row">
+            
+            <div class="loc-text">
+             
+              
+            </div>
+          </div>
+          <a href="https://maps.google.com/?q=30.130981,31.278828"
+             target="_blank" rel="noopener noreferrer"
+             class="btn-gold" style="width:fit-content; margin-top:8px;">
+            ↗&nbsp; افتح في خرائط جوجل
+          </a>
+        </div>
+
+        <div class="loc-map">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3456.8!2d31.2357!3d29.9792!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14584587b8a7f8b5%3A0x3c5a6c6a5a5a5a5a!2sCairo%2C%20Egypt!5e0!3m2!1sen!2seg!4v1700000000000"
+            allowfullscreen loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="خريطة مكان الفرح"
+          ></iframe>
+          <div class="loc-map-veil" onclick="this.style.display='none'">
+            <span class="loc-map-tag">انقر للاستكشاف ↗</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── RSVP ── -->
+    <section id="rsvp">
+      <div class="section-head reveal">
+        <span class="section-tag">انضم إلينا</span>
+        <h2 class="section-title">تأكيد الحضور</h2>
+        <div class="section-rule"></div>
+        <!-- ← غيّر تاريخ الـ RSVP deadline هنا -->
+        <p class="section-desc">يشرفنا حضوركم معنا في فرح يوسف ومريم. يرجى تأكيد الحضور قبل <strong style="color:var(--gold);font-weight:400;">17 April 2026</strong>.</p>
+      </div>
+
+      <div class="rsvp-box reveal">
+        <div id="rsvp-form-wrap">
+          <p class="rsvp-q">هل ستشرفنا بحضور هذا اليوم الخاص؟</p>
+
+          <div class="rsvp-btns">
+            <button class="rsvp-btn" id="rsvp-yes-btn" onclick="pickRSVP('yes')">
+              <span class="rb-emoji">💍</span>
+              يسرني الحضور
+            </button>
+            <button class="rsvp-btn" id="rsvp-no-btn" onclick="pickRSVP('no')">
+              <span class="rb-emoji">💔</span>
+              للأسف لا أستطيع الحضور
+            </button>
+          </div>
+
+          <div class="rsvp-form" id="rsvp-fields">
+            <div class="fg">
+              <label for="rsvp-name">الاسم الكامل</label>
+              <input type="text" id="rsvp-name" placeholder="اكتب اسمك هنا" autocomplete="name" />
+            </div>
+            <div class="fg">
+              <label for="rsvp-count">عدد الضيوف</label>
+              <select id="rsvp-count">
+                <option value="1">ضيف واحد (أنا فقط)</option>
+                <option value="2">ضيفان</option>
+                <option value="3">3 ضيوف</option>
+                <option value="4">4 ضيوف</option>
+                <option value="5">5+ ضيوف</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label for="rsvp-diet">الاحتياجات الغذائية <span style="opacity:.4">(اختياري)</span></label>
+              <input type="text" id="rsvp-diet" placeholder="مثل: نباتي، حلال، خالي من الغلوتين" />
+            </div>
+            <button class="rsvp-submit" onclick="submitRSVP()">تأكيد &nbsp;✦</button>
+          </div>
+        </div>
+
+        <div class="rsvp-done" id="rsvp-done">
+          <h3 id="rsvp-done-title">شكراً لك!</h3>
+          <p id="rsvp-done-msg"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── GUESTBOOK ── -->
+    <section id="guestbook">
+      <div class="section-head reveal">
+        <span class="section-tag">اكتب رسالة</span>
+        <h2 class="section-title">سجل الضيوف</h2>
+        <div class="section-rule"></div>
+        <p class="section-desc">شارك بركاتك وأمنياتك للعروسين.</p>
+      </div>
+
+      <div class="gb-form reveal">
+        <div class="fg">
+          <label for="gb-name">اسمك</label>
+          <input type="text" id="gb-name" placeholder="اسمك" autocomplete="name" />
+        </div>
+        <div class="fg">
+          <textarea
+            id="gb-msg" class="gb-textarea" rows="4"
+            placeholder="اكتب أمنياتك ومباركاتك هنا…"
+          ></textarea>
+        </div>
+        <button class="btn-gold" onclick="submitGuestMessage()">✦&nbsp; أرسل تهنئتك</button>
+      </div>
+
+      <div class="gb-grid" id="gb-grid">
+        <p class="gb-empty" id="gb-empty">كن أول من يكتب تهنئة…</p>
+      </div>
+    </section>
+
+   
+
+    <!-- ── ADD TO CALENDAR ── -->
+    <section id="calendar-cta">
+      <div class="section-head reveal">
+        <span class="section-tag">لا تفوت هذا اليوم</span>
+        <h2 class="section-title">احفظ التاريخ</h2>
+        <div class="section-rule"></div>
+      </div>
+      <div class="reveal">
+        <div class="cal-card" onclick="addToCalendar()" role="button" tabindex="0" aria-label="Add wedding to calendar">
+          <div class="cal-icon">📅</div>
+          <div class="cal-text">
+            <!-- ← غيّر التاريخ هنا -->
+            <h3>أضف إلى التقويم</h3>
+            <p>17 April 2026 &nbsp;·&nbsp; 8:00 مساءً</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════ -->
+  <footer>
+    <!-- ← غيّر الأسماء والتاريخ هنا -->
+    <div class="footer-names">Yousef &amp; mariem</div>
+    <div class="footer-date">17 · 04 · 2026</div>
+    <div class="footer-rule"></div>
+    <p class="footer-quote">"To love and to cherish, from this day forward, for ever and ever."</p>
+  </footer>
+
+  <!-- Copyright -->
+  <div style="text-align:center; padding: 18px 0 24px; color: rgba(245,232,224,0.3); font-family: 'Montserrat', sans-serif; font-size: 11px; letter-spacing: 0.12em;">
+    جميع حقوق النشر محفوظة &copy; HEMA
+  </div>
+
+  <!-- JavaScript -->
+  <script src="js/main.js"></script>
+
+</body>
+</html>
